@@ -12,8 +12,9 @@ public class AppConfig {
 
     /**
      * Named bean speakerService
-     * Two demonstrates two ways of dependency injection:
-     * setter and constructor
+     * @Bean annotation can be used on method level unlike @Component
+     * demonstrates three ways of dependency injection:
+     * setter, constructor and autowired setter (which would be a hybrid)
      * @Scope annotation:
      * - singleton (default) One instance per Spring Container (Application Context)
      * - prototype Unique instance per request from the bean container
@@ -25,8 +26,9 @@ public class AppConfig {
     @Bean(name = "speakerService")
     @Scope(value = BeanDefinition.SCOPE_SINGLETON)
     public SpeakerService getSpeakerService() {
-        return getSpeakerServiceViaConstructorInjection();
+//        return getSpeakerServiceViaConstructorInjection();
 //        return getSpeakerServiceViaSetterInjection();
+        return getSpeakerServiceViaSetterAutowiring();
     }
 
     @Bean(name = "speakerRepository")
@@ -42,5 +44,13 @@ public class AppConfig {
 
     private SpeakerService getSpeakerServiceViaConstructorInjection() {
         return new SpeakerServiceImpl(getSpeakerRepository());
+    }
+
+    /**
+     * First the no-args constructor is invoked, then the
+     * autowired setter is called.
+     */
+    private SpeakerService getSpeakerServiceViaSetterAutowiring() {
+        return new SpeakerServiceImpl();
     }
 }
