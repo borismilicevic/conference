@@ -3,13 +3,23 @@ package com.pluralsight.model;
 public class Speaker {
     private String firstName;
     private String lastName;
+    private double seedNum;
 
-    public Speaker(String firstName, String lastName) {
+    public Speaker(String firstName, String lastName, double seedNum) {
         this.firstName = firstName;
         this.lastName = lastName;
+        this.seedNum = seedNum;
     }
 
     public Speaker() {
+    }
+
+    public double getSeedNum() {
+        return seedNum;
+    }
+
+    public void setSeedNum(double seedNum) {
+        this.seedNum = seedNum;
     }
 
     public String getFirstName() {
